@@ -1,33 +1,40 @@
 from typing import Generic, Optional, TypeVar
-from pydantic.generics import GenericModel
 from pydantic import BaseModel, Field
 
-T = TypeVar("T")
+# Tentukan TypeVar
+T = TypeVar('T')
 
-#login
+# Model untuk Generic
+class MyModel(BaseModel, Generic[T]):
+    value: T
+
+
+# Model untuk login
 class Login(BaseModel):
-    username : str
-    password : str
+    username: str
+    password: str
 
-#register
+
+# Model untuk register
 class Register(BaseModel):
     username: str
     password: str
     email: str
-    phone_number: str  # Corrected the typo here
+    phone_number: str  # Corrected typo
 
     first_name: str
     last_name: str
 
 
-#response model
-class ResponseSchema(BaseModel):
-    code :str
-    status : str
-    message :str
-    result : Optional[T] = None
+# Response model
+class ResponseSchema(BaseModel, Generic[T]):
+    code: str
+    status: str
+    message: str
+    result: Optional[T] = None
 
-#token
+
+# Model untuk token
 class TokenResponse(BaseModel):
-    access_token : str
-    token_type : str
+    access_token: str
+    token_type: str
